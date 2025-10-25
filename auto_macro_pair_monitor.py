@@ -13,6 +13,8 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
 
 # ===== Parameters =====
 WINDOW = 250  # rolling window size (e.g., 250 trading days ≈ 1 year)
@@ -107,7 +109,11 @@ def main():
         ax.plot(df.index, diff.values, label=f'{TARGET} − {BASE}', color=f'C{idx % 10}')
         ax.axhline(0, color='black', linestyle='--', alpha=0.7)
         ax.set_title(f'{TARGET} − {BASE} ({WINDOW}-Day) | pct {latest_pct:.1f}%', fontsize=11)
-        ax.set_xlabel("Date")
+        ax.xaxis.set_major_locator(mdates.YearLocator(2))
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+        for label in ax.get_xticklabels():
+            label.set_rotation(0) 
+        ax.set_xlabel("")  
         ax.set_ylabel("Rolling CumReturn Diff")
         ax.legend()
         ax.grid(True, linestyle='--', alpha=0.5)
