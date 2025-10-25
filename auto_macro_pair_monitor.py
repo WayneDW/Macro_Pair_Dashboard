@@ -26,7 +26,8 @@ PAIRS = [
     ('QQQ', 'BRK-B'),     # growth vs quality value
     ('NVDA', 'QQQ'),      # AI & innovation vs broad market
     ('SMH', 'QQQ'),       # semiconductors vs tech index
-    ('USO', 'TLT'),       # real-economy vs bonds
+    #('USO', 'TLT'),       # real-economy vs bonds
+    ('BTC-USD', 'QQQ'),   # digital liquidity vs traditional growth
     ('TIP', 'TLT'),       # inflation expectation vs nominal rate
     ('DX-Y.NYB', 'GLD')   # dollar vs gold (global risk flow)
     # If you use BTC, keep the BTC-only clip behavior below.
