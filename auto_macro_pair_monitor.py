@@ -106,6 +106,23 @@ def main():
         latest_diff = float(diff.iloc[-1])
         latest_pct = percentile_rank(diff.values, latest_diff)
 
+        # === quantile coloring logic ===
+        q10, q90 = np.nanquantile(diff, [0.1, 0.9])
+        ax.set_title(
+           f'{TARGET} − {BASE} | pct {latest_pct:.1f}%',
+            fontsize=11,
+            color='red' if (latest_diff < q10 or latest_diff > q90) else 'black'
+        )
+
+        q10, q25, q75, q90 = np.nanquantile(diff, [0.1, 0.25, 0.75, 0.9])
+        color = (
+            'red' if (latest_diff < q10 or latest_diff > q90)
+            else 'orange' if (q10 <= latest_diff < q25 or q75 < latest_diff <= q90)
+            else 'black'
+        )
+
+        ax.set_title(f'{TARGET} − {BASE} | pct {latest_pct:.1f}%', fontsize=11, color=color)
+
         # Plot
         ax.plot(df.index, diff.values, label=f'{TARGET} − {BASE}', color=f'C{idx % 10}')
         ax.axhline(0, color='black', linestyle='--', alpha=0.7)
@@ -116,7 +133,7 @@ def main():
             label.set_rotation(0) 
         ax.set_xlabel("")  
         ax.set_ylabel(f"{WINDOW}-CumReturn Diff")
-        ax.legend()
+        #ax.legend()
         ax.grid(True, linestyle='--', alpha=0.5)
 
     # Hide any extra subplots
