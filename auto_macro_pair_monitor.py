@@ -67,7 +67,8 @@ def main():
     raw_data = {}
     for sym in all_tickers:
         try:
-            df = yf.download(sym, start=START_DATE, end=END_DATE, auto_adjust=False, progress=False)
+            #df = yf.download(sym, start=START_DATE, end=END_DATE, auto_adjust=False, progress=False)
+            df = yf.download(sym, start=START_DATE, auto_adjust=False, progress=False)
         except Exception as e:
             print(f"[WARN] Failed to download {sym}: {e}")
             df = pd.DataFrame()
